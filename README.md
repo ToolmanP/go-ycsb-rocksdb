@@ -1,6 +1,10 @@
-# go-ycsb
+# go-ycsb-rocksdb
 
 go-ycsb is a Go port of [YCSB](https://github.com/brianfrankcooper/YCSB). It fully supports all YCSB generators and the Core workload so we can do the basic CRUD benchmarks with Go.
+
+The original repo only supports sqlite3 in container environment. This fork goes beyond limitation by importing the correct rocksDB version and introduces the static linking.
+
+This should be a more generic version of go-ycsb. Using container version is highly recommended.
 
 ## Why another Go YCSB?
 
