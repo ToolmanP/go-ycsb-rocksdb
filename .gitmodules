@@ -1,0 +1,4 @@
+[submodule "thirdparty/rocksdb"]
+	path = thirdparty/rocksdb
+	url = git@github.com:ToolmanP/rocksdb.git
+	branch = v6.8.1-alpine3.16
