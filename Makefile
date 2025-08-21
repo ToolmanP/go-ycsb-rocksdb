@@ -3,6 +3,13 @@ ROCKSDB_CHECK := $(shell echo "int main() { return 0; }" | gcc -lrocksdb -x c++ 
 SQLITE_CHECK := $(shell echo "int main() { return 0; }" | gcc -lsqlite3 -x c++ -o /dev/null - 2>/dev/null; echo $$?)
 
 TAGS =
+DESTDIR ?= bin/
+
+ifeq ($(STATIC), 1)
+	GOLDFLAGS := -ldflags '-linkmode external -extldflags "-static"'
+else
+	GOLDFLAGS :=
+endif
 
 ifdef FDB_CHECK
 	TAGS += foundationdb
@@ -34,9 +41,9 @@ default: build
 build: export GO111MODULE=on
 build:
 ifeq ($(TAGS),)
-	$(CGO_FLAGS) go build -o bin/go-ycsb cmd/go-ycsb/*
+	$(CGO_FLAGS) go build $(GOLDFLAGS) -o $(DESTDIR)go-ycsb cmd/go-ycsb/*
 else
-	$(CGO_FLAGS) go build -tags "$(TAGS)" -o bin/go-ycsb cmd/go-ycsb/*
+	$(CGO_FLAGS) go build -tags "$(TAGS)" $(GOLDFLAGS) -o $(DESTDIR)go-ycsb cmd/go-ycsb/*
 endif
 
 check:
