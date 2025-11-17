@@ -18,6 +18,7 @@ FROM toolmanp/ubuntu:22.04-zpoline
 RUN apt update && apt upgrade -y
 RUN apt install liblz4-dev libzstd-dev libsnappy-dev bzip2 libsqlite3-dev -y
 RUN apt clean 
+COPY workloads /workloads
 COPY --from=builder /go-ycsb /usr/local/bin/
 COPY --from=builder /usr/local/lib/librocksdb* /usr/local/lib/
 RUN ldconfig
